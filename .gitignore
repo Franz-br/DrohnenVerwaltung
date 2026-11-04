@@ -1,0 +1,48 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+
+# Angular
+node_modules/
+dist/
+.angular/
+out-tsc/
+coverage/
+npm-debug.log*
+
+# Database (generated locally; Migrations/ stays committed)
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+
+# Secrets
+.env
+.env.*
+appsettings.*.local.json
+secrets.json
+*.pfx
+
+# IDE
+.idea/
+*.swp
+**/.vscode/*
+!**/.vscode/settings.json
+!**/.vscode/extensions.json
+!**/.vscode/launch.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and temp files
+*.log
+logs/
+tmp/
+*.tmp
