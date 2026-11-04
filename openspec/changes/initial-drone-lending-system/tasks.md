@@ -5,7 +5,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 ## 1. Backend setup
 
 - [x] 1.1 Remove the WeatherForecast sample from `Program.cs` and `DroneInventory.Api.http`, add a root `.gitignore` (bin/, obj/, `*.db`, node_modules/), and verify `dotnet build` succeeds and `git status` no longer lists `bin/`/`obj/` (#1)
-- [ ] 1.2 Add EF Core SQLite + Design packages, `DroneInventoryDbContext`, connection string `Data Source=drone-inventory.db`, `TimeProvider` registration and Development-only `Database.Migrate()` (design D4, D7); verify `dotnet build` succeeds (#2)
+- [x] 1.2 Add EF Core SQLite + Design packages, `DroneInventoryDbContext`, connection string `Data Source=drone-inventory.db`, `TimeProvider` registration and Development-only `Database.Migrate()` (design D4, D7); verify `dotnet build` succeeds (#2)
 - [ ] 1.3 Create test project `backend/DroneInventory.Api.Tests` (xUnit, `Microsoft.AspNetCore.Mvc.Testing`), `backend/DroneInventory.slnx`, a `WebApplicationFactory` fixture using in-memory SQLite and a fake `TimeProvider`, and the `ProblemDetails` exception handler for `ValidationException`/`NotFoundException`/`ConflictException` (design D6, D8); verify `dotnet test` in `backend/` runs a smoke test green (#3)
 
 ## 2. Drone (backend) — REQ-001, REQ-002
