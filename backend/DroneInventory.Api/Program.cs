@@ -1,4 +1,5 @@
 using DroneInventory.Api.Data;
+using DroneInventory.Api.ErrorHandling;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +13,9 @@ builder.Services.AddDbContext<DroneInventoryDbContext>(options =>
 
 builder.Services.AddSingleton(TimeProvider.System);
 
+builder.Services.AddProblemDetails();
+builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,6 +27,10 @@ if (app.Environment.IsDevelopment())
     scope.ServiceProvider.GetRequiredService<DroneInventoryDbContext>().Database.Migrate();
 }
 
+app.UseExceptionHandler();
+
 app.UseHttpsRedirection();
 
 app.Run();
+
+public partial class Program;
