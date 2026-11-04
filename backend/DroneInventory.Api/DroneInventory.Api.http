@@ -1,0 +1,3 @@
+@DroneInventory.Api_HostAddress = http://localhost:5092
+
+# Example requests per endpoint follow in task 4.8.
