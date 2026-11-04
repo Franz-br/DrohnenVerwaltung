@@ -1,0 +1,80 @@
+You are working on the project "Drone Lending System" (repository: drone-inventory).
+
+## Goal
+Manage drones, student groups, loans, batteries and propellers (as quantities),
+returns and loan history. This replaces a paper list on a cabinet door.
+
+## Architecture (fixed)
+Angular Frontend (frontend/drone-inventory-ui)
+  -> REST/JSON
+ASP.NET Core 10 Web API (backend/DroneInventory.Api)
+  -> Entity Framework Core -> SQLite
+
+- Business logic and validation live in the BACKEND only.
+- The frontend talks only to the REST API, never to the database.
+
+## Ubiquitous Language (use these terms everywhere: spec, code, DB, tests)
+- Drone: Id, Name, Description
+- StudentGroup: Id, Name
+- Loan: Id, DroneId, StudentGroupId, LoanDate, ReturnDate, Status (Active | Returned)
+- LoanItem: Id, LoanId, Type (Battery | Propeller), Quantity
+Do NOT invent synonyms such as "Verleih", "Ausgabe", "Buchung" or "Booking".
+
+## Domain Rules
+- A drone has at most one active loan.
+- Only available drones can be loaned.
+- Returning a loan makes the drone available again.
+- Accessory quantities are integers and never negative.
+- Returned loans are never deleted.
+- Batteries and propellers are tracked only as quantities, not individually.
+- Drone availability (Available | Loaned) is DERIVED from the active loan,
+  not stored as a separate database field.
+
+## Out of Scope
+No login/users/roles, no individual battery inventory (BAT-001...), no advance
+reservations, no damage management or return differences, no statistics/exports.
+
+## Git Branching Rules (mandatory)
+- EVERY feature/task gets its own NEW branch. Never work directly on main.
+- Branch name: feature/<issue-number>-<short-kebab-case-name>
+  (e.g. feature/16-loan-api). Use fix/<issue-number>-<name> for bug fixes.
+- Before changing any file:
+  1. Run `git status` and make sure the working tree is clean
+     (if not, stop and tell me).
+  2. Run `git switch main` and `git pull`.
+  3. Run `git switch -c feature/<issue-number>-<short-name>`.
+- One issue = one branch = one pull request. Never mix several tasks in one branch.
+- If I name a new task while still on another feature branch, do NOT continue
+  there: switch back to main and create a new branch first.
+- Commits: small and focused, message format
+  "<Verb> <what> (#<issue-number>)", e.g. "Implement loan API (#16)".
+- Do not push, merge or delete branches unless I explicitly ask.
+
+## Working Rules
+1. OpenSpec specs (openspec/specs and the current change in openspec/changes)
+   are the source of truth. Read the relevant spec BEFORE writing code.
+2. If behavior must change, change the spec first, then the code.
+3. Implement ONLY the one GitHub issue / task I name. Do not implement other
+   OpenSpec tasks, and do not refactor unrelated code.
+4. Every Given/When/Then scenario of the relevant requirement needs at least
+   one automated test (backend: dotnet test, frontend: ng test).
+5. Do not mark tasks as done in tasks.md until the tests pass.
+6. Never delete GitHub issues. Never commit tokens or secrets.
+7. Keep the code small and understandable. I must be able to explain every line.
+8. Before starting, check with gh issue view <number> that the issue is
+   assigned to ME (or unassigned, then assign it to me). Do not work on
+   issues assigned to someone else.
+9. Always run git pull on main before creating a branch, because my
+   teammate also merges into main.
+
+## Workflow per task
+1. Create the new branch (see Git Branching Rules) and confirm its name to me.
+2. Restate the task and list the requirement(s) (REQ-xxx) and spec scenarios it covers.
+3. Propose a short plan (files to create/change) and WAIT for my confirmation.
+4. Implement, then run the tests and report the results.
+5. Summarize the changes as a diff overview, mapped to requirement -> code -> test.
+6. Suggest a commit message and PR description (referencing the issue number,
+   e.g. "Closes #16"). Do not commit or push unless I ask.
+
+If anything in the spec is ambiguous or contradicts the domain rules,
+ask me instead of guessing.
