@@ -26,7 +26,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 - [x] 4.4 Derived drone status: verify via integration tests that `GET /api/drones` shows `Loaned` with an active loan and `Available` after return (scenarios of "Derived Drone Status" in `specs/drone/spec.md`) (#11)
 - [x] 4.5 Active loan list: `GET /api/loans?status=Active` returning group, drone, batteries, propellers, loan date (REQ-007); verify integration tests for "List Active Loans" pass (#12)
 - [x] 4.6 Return operation: `Loan.Return(now)` and `POST /api/loans/{id}/return` setting `Returned` and `ReturnDate`, 409 on second return, 404 on unknown loan (REQ-008, REQ-009); verify domain and integration tests for "Return Loan" and "Record Return Date" pass (#13)
-- [ ] 4.7 Loan history: `GET /api/loans?status=Returned` including return date, no delete route (REQ-010); verify integration tests for "Keep Loan History" pass, including unchanged quantities and loan date after return (#14)
+- [x] 4.7 Loan history: `GET /api/loans?status=Returned` including return date, no delete route (REQ-010); verify integration tests for "Keep Loan History" pass, including unchanged quantities and loan date after return (#14)
 - [ ] 4.8 Update `DroneInventory.Api.http` with one example request per endpoint (TELLO-07, Group 3, 4 batteries, 8 propellers); verify each request runs against `dotnet run` with the expected status code (#15)
 
 ## 5. Frontend setup
