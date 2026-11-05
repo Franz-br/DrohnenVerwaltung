@@ -1,3 +1,77 @@
 @DroneInventory.Api_HostAddress = http://localhost:5092
 
-# Example requests per endpoint follow in task 4.8.
+# Run the requests in order on a fresh database: the ids 1 below are the drone,
+# student group and loan created by the first requests.
+
+### REQ-001: Create drone -> 201
+POST {{DroneInventory.Api_HostAddress}}/api/drones
+Content-Type: application/json
+
+{
+  "name": "TELLO-07",
+  "description": "SSID: TELLO-9FA21B, rechter Propellerschutz beschädigt"
+}
+
+### REQ-002: List drones -> 200 (TELLO-07 is Available)
+GET {{DroneInventory.Api_HostAddress}}/api/drones
+Accept: application/json
+
+### REQ-003: Create student group -> 201
+POST {{DroneInventory.Api_HostAddress}}/api/student-groups
+Content-Type: application/json
+
+{
+  "name": "Group 3"
+}
+
+### REQ-003: List student groups -> 200
+GET {{DroneInventory.Api_HostAddress}}/api/student-groups
+Accept: application/json
+
+### REQ-006: Negative quantity while TELLO-07 is available -> 400
+POST {{DroneInventory.Api_HostAddress}}/api/loans
+Content-Type: application/json
+
+{
+  "droneId": 1,
+  "studentGroupId": 1,
+  "items": [
+    { "type": "Battery", "quantity": -1 }
+  ]
+}
+
+### REQ-004, REQ-006: Loan TELLO-07 to Group 3 with 4 batteries and 8 propellers -> 201
+POST {{DroneInventory.Api_HostAddress}}/api/loans
+Content-Type: application/json
+
+{
+  "droneId": 1,
+  "studentGroupId": 1,
+  "items": [
+    { "type": "Battery", "quantity": 4 },
+    { "type": "Propeller", "quantity": 8 }
+  ]
+}
+
+### REQ-005: Loan TELLO-07 again while it is loaned -> 409
+POST {{DroneInventory.Api_HostAddress}}/api/loans
+Content-Type: application/json
+
+{
+  "droneId": 1,
+  "studentGroupId": 1
+}
+
+### REQ-007: List active loans -> 200
+GET {{DroneInventory.Api_HostAddress}}/api/loans?status=Active
+Accept: application/json
+
+### REQ-008, REQ-009: Return the loan -> 200 (status Returned, returnDate set)
+POST {{DroneInventory.Api_HostAddress}}/api/loans/1/return
+
+### REQ-008: Return the same loan again -> 409
+POST {{DroneInventory.Api_HostAddress}}/api/loans/1/return
+
+### REQ-010: List loan history -> 200
+GET {{DroneInventory.Api_HostAddress}}/api/loans?status=Returned
+Accept: application/json
