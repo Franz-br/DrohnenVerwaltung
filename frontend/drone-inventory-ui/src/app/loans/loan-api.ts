@@ -14,4 +14,9 @@ export class LoanApi {
   create(request: CreateLoanRequest): Observable<Loan> {
     return this.http.post<Loan>('/api/loans', request);
   }
+
+  // The backend sets the return date, so the request has no body (REQ-009).
+  returnLoan(id: number): Observable<Loan> {
+    return this.http.post<Loan>(`/api/loans/${id}/return`, null);
+  }
 }
