@@ -1,0 +1,28 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.status {
+  display: inline-block;
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.75rem;
+  background: #dff0d8;
+  color: #1e4620;
+}
+
+.status-loaned {
+  background: #fbe3c3;
+  color: #6b3a00;
+}
+
+.error {
+  color: #a4001c;
+}

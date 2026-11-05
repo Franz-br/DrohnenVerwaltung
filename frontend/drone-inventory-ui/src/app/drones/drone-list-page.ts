@@ -1,8 +1,37 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
+import { Drone } from '../api/api-models';
+import { DroneApi } from './drone-api';
 
-// Placeholder; the drone list and form follow in tasks 6.1 and 6.2.
+// Lists all drones with name, status and description (REQ-002).
+// The status comes from the backend, where it is derived from the active loan.
 @Component({
   selector: 'app-drone-list-page',
-  template: `<h1>Drones</h1>`
+  templateUrl: './drone-list-page.html',
+  styleUrl: './drone-list-page.css'
 })
-export class DroneListPage {}
+export class DroneListPage {
+  private readonly droneApi = inject(DroneApi);
+
+  protected readonly drones = signal<Drone[]>([]);
+  protected readonly loading = signal(true);
+  protected readonly error = signal<string | null>(null);
+
+  constructor() {
+    this.load();
+  }
+
+  protected load(): void {
+    this.loading.set(true);
+    this.droneApi.list().subscribe({
+      next: (drones) => {
+        this.drones.set(drones);
+        this.error.set(null);
+        this.loading.set(false);
+      },
+      error: () => {
+        this.error.set('The drones could not be loaded.');
+        this.loading.set(false);
+      }
+    });
+  }
+}

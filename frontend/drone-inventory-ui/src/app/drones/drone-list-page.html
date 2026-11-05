@@ -1,0 +1,31 @@
+<h1>Drones</h1>
+
+@if (error(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+} @else if (loading()) {
+  <p>Loading drones…</p>
+} @else if (drones().length === 0) {
+  <p>No drones yet.</p>
+} @else {
+  <table>
+    <caption class="visually-hidden">All drones</caption>
+    <thead>
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (drone of drones(); track drone.id) {
+        <tr>
+          <td>{{ drone.name }}</td>
+          <td>
+            <span class="status" [class.status-loaned]="drone.status === 'Loaned'">{{ drone.status }}</span>
+          </td>
+          <td>{{ drone.description }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
