@@ -1,11 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { Drone } from '../api/api-models';
 import { DroneApi } from './drone-api';
+import { DroneForm } from './drone-form';
 
 // Lists all drones with name, status and description (REQ-002).
 // The status comes from the backend, where it is derived from the active loan.
 @Component({
   selector: 'app-drone-list-page',
+  imports: [DroneForm],
   templateUrl: './drone-list-page.html',
   styleUrl: './drone-list-page.css'
 })

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Drone } from '../api/api-models';
+import { CreateDroneRequest, Drone } from '../api/api-models';
 
 @Service()
 export class DroneApi {
@@ -9,5 +9,9 @@ export class DroneApi {
 
   list(): Observable<Drone[]> {
     return this.http.get<Drone[]>('/api/drones');
+  }
+
+  create(request: CreateDroneRequest): Observable<Drone> {
+    return this.http.post<Drone>('/api/drones', request);
   }
 }

@@ -1,0 +1,32 @@
+<form (submit)="save($event)" novalidate aria-labelledby="drone-form-title">
+  <h2 id="drone-form-title">Add a drone</h2>
+
+  <div class="field">
+    <label for="drone-name">Name</label>
+    <input
+      id="drone-name"
+      type="text"
+      [formField]="droneForm.name"
+      [attr.aria-invalid]="droneForm.name().touched() && droneForm.name().invalid()"
+      aria-describedby="drone-name-error"
+    />
+    <p id="drone-name-error" class="error">
+      @if (droneForm.name().touched()) {
+        @for (error of droneForm.name().errors(); track $index) {
+          {{ error.message }}
+        }
+      }
+    </p>
+  </div>
+
+  <div class="field">
+    <label for="drone-description">Description</label>
+    <textarea id="drone-description" rows="2" [formField]="droneForm.description"></textarea>
+  </div>
+
+  @if (serverError(); as message) {
+    <p role="alert" class="error">{{ message }}</p>
+  }
+
+  <button type="submit" [disabled]="droneForm().submitting()">Add drone</button>
+</form>

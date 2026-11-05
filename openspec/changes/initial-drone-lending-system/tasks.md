@@ -36,7 +36,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 ## 6. Drone (frontend) — REQ-001, REQ-002
 
 - [x] 6.1 `DroneApi` service and drone list page showing name, status and description; verify a Vitest test with `HttpTestingController` renders the list (#17)
-- [ ] 6.2 Drone form (name, description) that creates a drone, refreshes the list and shows backend errors (e.g. duplicate name); verify a component test for success and a 409 error (#18)
+- [x] 6.2 Drone form (name, description) that creates a drone, refreshes the list and shows backend errors (e.g. duplicate name); verify a component test for success and a 409 error (#18)
 
 ## 7. StudentGroup (frontend) — REQ-003
 

@@ -1,5 +1,7 @@
 <h1>Drones</h1>
 
+<app-drone-form (created)="load()" />
+
 @if (error(); as message) {
   <p role="alert" class="error">{{ message }}</p>
 } @else if (loading()) {
