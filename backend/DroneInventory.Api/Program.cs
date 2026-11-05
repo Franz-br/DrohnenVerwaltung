@@ -18,6 +18,7 @@ builder.Services.AddSingleton(TimeProvider.System);
 
 builder.Services.AddScoped<DroneService>();
 builder.Services.AddScoped<StudentGroupService>();
+builder.Services.AddScoped<LoanService>();
 
 // Enums such as DroneStatus are returned as strings (design D5).
 builder.Services.ConfigureHttpJsonOptions(options =>
@@ -43,6 +44,7 @@ app.UseHttpsRedirection();
 
 app.MapDroneEndpoints();
 app.MapStudentGroupEndpoints();
+app.MapLoanEndpoints();
 
 app.Run();
 
