@@ -38,6 +38,25 @@ namespace DroneInventory.Api.Migrations
 
                     b.ToTable("Drones", (string)null);
                 });
+
+            modelBuilder.Entity("DroneInventory.Api.Domain.StudentGroup", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .UseCollation("NOCASE");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("StudentGroups", (string)null);
+                });
 #pragma warning restore 612, 618
         }
     }

@@ -15,7 +15,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 
 ## 3. StudentGroup (backend) — REQ-003
 
-- [ ] 3.1 StudentGroup domain model: `StudentGroup` entity (Id, Name), EF configuration with unique `NOCASE` name index, migration `AddStudentGroup`; verify the migration applies on a fresh database (#6)
+- [x] 3.1 StudentGroup domain model: `StudentGroup` entity (Id, Name), EF configuration with unique `NOCASE` name index, migration `AddStudentGroup`; verify the migration applies on a fresh database (#6)
 - [ ] 3.2 StudentGroup API: `POST /api/student-groups` and `GET /api/student-groups`; verify integration tests for every scenario in `specs/student-group/spec.md` pass (#7)
 
 ## 4. Loan (backend) — REQ-004 to REQ-010
