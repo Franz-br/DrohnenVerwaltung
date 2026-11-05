@@ -1,0 +1,20 @@
+/* Shared by the active loan list and the loan history. */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.number {
+  text-align: right;
+}
+
+.error {
+  color: #a4001c;
+}
