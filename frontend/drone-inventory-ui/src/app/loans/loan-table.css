@@ -18,3 +18,27 @@ td {
 .error {
   color: #a4001c;
 }
+
+.confirmation {
+  color: #1e4620;
+}
+
+button {
+  font: inherit;
+  padding: 0.25rem 0.75rem;
+  background: #1f3a5f;
+  color: #fff;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+button:focus-visible {
+  outline: 2px solid #1f3a5f;
+  outline-offset: 2px;
+}

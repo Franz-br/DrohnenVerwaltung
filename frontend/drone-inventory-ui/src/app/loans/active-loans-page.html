@@ -1,5 +1,12 @@
 <h1>Active loans</h1>
 
+@if (returnError(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+}
+@if (confirmation(); as message) {
+  <p role="status" class="confirmation">{{ message }}</p>
+}
+
 @if (error(); as message) {
   <p role="alert" class="error">{{ message }}</p>
 } @else if (loading()) {
@@ -16,6 +23,7 @@
         <th scope="col" class="number">Batteries</th>
         <th scope="col" class="number">Propellers</th>
         <th scope="col">Loan Date</th>
+        <th scope="col"><span class="visually-hidden">Actions</span></th>
       </tr>
     </thead>
     <tbody>
@@ -26,6 +34,16 @@
           <td class="number">{{ loan.batteries }}</td>
           <td class="number">{{ loan.propellers }}</td>
           <td>{{ loan.loanDate | date: 'dd.MM.yyyy' }}</td>
+          <td>
+            <button
+              type="button"
+              [attr.aria-label]="'Return ' + loan.droneName + ' from ' + loan.studentGroupName"
+              [disabled]="returningId() === loan.id"
+              (click)="returnLoan(loan)"
+            >
+              Return
+            </button>
+          </td>
         </tr>
       }
     </tbody>
