@@ -51,7 +51,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 
 ## 9. Integration check
 
-- [ ] 9.1 End-to-end walkthrough with `dotnet run` and `ng serve`: create TELLO-07 and Group 3, loan with 4 batteries and 8 propellers, try a second loan (rejected), return, check history and that TELLO-07 is available; verify `dotnet test` and `ng test` are green and record the result in the PR (#24)
+- [x] 9.1 End-to-end walkthrough with `dotnet run` and `ng serve`: create TELLO-07 and Group 3, loan with 4 batteries and 8 propellers, try a second loan (rejected), return, check history and that TELLO-07 is available; verify `dotnet test` and `ng test` are green and record the result in the PR (#24)
 
 ## Workflow follow-up
 
