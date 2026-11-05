@@ -1,4 +1,7 @@
+using System.Text.Json.Serialization;
+using DroneInventory.Api.Application;
 using DroneInventory.Api.Data;
+using DroneInventory.Api.Endpoints;
 using DroneInventory.Api.ErrorHandling;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +15,12 @@ builder.Services.AddDbContext<DroneInventoryDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DroneInventory")));
 
 builder.Services.AddSingleton(TimeProvider.System);
+
+builder.Services.AddScoped<DroneService>();
+
+// Enums such as DroneStatus are returned as strings (design D5).
+builder.Services.ConfigureHttpJsonOptions(options =>
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
 builder.Services.AddProblemDetails();
 builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
@@ -30,6 +39,8 @@ if (app.Environment.IsDevelopment())
 app.UseExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.MapDroneEndpoints();
 
 app.Run();
 
