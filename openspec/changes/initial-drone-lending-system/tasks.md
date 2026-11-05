@@ -21,7 +21,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 ## 4. Loan (backend) — REQ-004 to REQ-010
 
 - [x] 4.1 Loan domain model: `Loan` aggregate (Id, DroneId, StudentGroupId, LoanDate, ReturnDate, Status) with `LoanItem` (Id, LoanId, Type, Quantity), enums `LoanStatus`/`LoanItemType`, `Loan.Create(...)` validating type, duplicate type and non-negative quantity (design D2); verify domain unit tests for the "Loan Accessories" validation scenarios pass (#8)
-- [ ] 4.2 Loan persistence: EF configuration for `Loans`/`LoanItems`, filtered unique index `Loans(DroneId) WHERE Status = 'Active'`, migration `AddLoan` (design D3); verify a test inserting two active loans for one drone fails at the database (#9)
+- [x] 4.2 Loan persistence: EF configuration for `Loans`/`LoanItems`, filtered unique index `Loans(DroneId) WHERE Status = 'Active'`, migration `AddLoan` (design D3); verify a test inserting two active loans for one drone fails at the database (#9)
 - [ ] 4.3 Loan API create: `POST /api/loans` with 404 for unknown drone/group, 409 for a drone with an active loan (also on `DbUpdateException`), 400 for invalid items, loan date from `TimeProvider` (REQ-004, REQ-005, REQ-006); verify integration tests for every scenario of "Loan Drone", "No Double Loan" and "Loan Accessories" pass (#10)
 - [ ] 4.4 Derived drone status: verify via integration tests that `GET /api/drones` shows `Loaned` with an active loan and `Available` after return (scenarios of "Derived Drone Status" in `specs/drone/spec.md`) (#11)
 - [ ] 4.5 Active loan list: `GET /api/loans?status=Active` returning group, drone, batteries, propellers, loan date (REQ-007); verify integration tests for "List Active Loans" pass (#12)
