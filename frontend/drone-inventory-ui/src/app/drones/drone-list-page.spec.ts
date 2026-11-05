@@ -1,7 +1,9 @@
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { Drone } from '../api/api-models';
+import { DroneForm } from './drone-form';
 import { DroneListPage } from './drone-list-page';
 
 describe('DroneListPage', () => {
@@ -61,5 +63,18 @@ describe('DroneListPage', () => {
     const page = await render('error');
 
     expect(page.querySelector('[role="alert"]')?.textContent).toContain('could not be loaded');
+  });
+
+  it('reloads the list after a drone was created', async () => {
+    const fixture = TestBed.createComponent(DroneListPage);
+    httpTesting.expectOne('/api/drones').flush([]);
+    await fixture.whenStable();
+
+    const tello07: Drone = { id: 7, name: 'TELLO-07', description: '', status: 'Available' };
+    fixture.debugElement.query(By.directive(DroneForm)).componentInstance.created.emit(tello07);
+    httpTesting.expectOne('/api/drones').flush([tello07]);
+    await fixture.whenStable();
+
+    expect((fixture.nativeElement as HTMLElement).querySelector('tbody td')?.textContent).toBe('TELLO-07');
   });
 });
