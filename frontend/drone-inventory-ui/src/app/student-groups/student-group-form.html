@@ -1,0 +1,27 @@
+<form (submit)="save($event)" novalidate aria-labelledby="group-form-title">
+  <h2 id="group-form-title">Add a student group</h2>
+
+  <div class="field">
+    <label for="group-name">Name</label>
+    <input
+      id="group-name"
+      type="text"
+      [formField]="groupForm.name"
+      [attr.aria-invalid]="groupForm.name().touched() && groupForm.name().invalid()"
+      aria-describedby="group-name-error"
+    />
+    <p id="group-name-error" class="error">
+      @if (groupForm.name().touched()) {
+        @for (error of groupForm.name().errors(); track $index) {
+          {{ error.message }}
+        }
+      }
+    </p>
+  </div>
+
+  @if (serverError(); as message) {
+    <p role="alert" class="error">{{ message }}</p>
+  }
+
+  <button type="submit" [disabled]="groupForm().submitting()">Add student group</button>
+</form>
