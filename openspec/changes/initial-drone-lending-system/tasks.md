@@ -10,7 +10,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 
 ## 2. Drone (backend) — REQ-001, REQ-002
 
-- [ ] 2.1 Drone domain model: `Drone` entity (Id, Name, Description), `DroneStatus` enum, EF configuration with unique `NOCASE` name index, migration `AddDrone`; verify the migration applies on a fresh database (#4)
+- [x] 2.1 Drone domain model: `Drone` entity (Id, Name, Description), `DroneStatus` enum, EF configuration with unique `NOCASE` name index, migration `AddDrone`; verify the migration applies on a fresh database (#4)
 - [ ] 2.2 Drone API: `POST /api/drones` and `GET /api/drones` with status computed from active loans (design D1, D5) — status initially always `Available`; verify integration tests for every scenario of "Create Drone" and "List Drones" in `specs/drone/spec.md` pass (#5)
 
 ## 3. StudentGroup (backend) — REQ-003
