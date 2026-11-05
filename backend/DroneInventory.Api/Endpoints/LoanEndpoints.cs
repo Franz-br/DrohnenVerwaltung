@@ -10,7 +10,9 @@ public static class LoanEndpoints
     {
         var loans = app.MapGroup("/api/loans");
 
-        // GET /api/loans?status=Active lists the active loans (REQ-007).
+        // GET /api/loans?status=Active lists the active loans (REQ-007),
+        // GET /api/loans?status=Returned the loan history (REQ-010).
+        // There is deliberately no DELETE route: returned loans are never deleted.
         loans.MapGet("", async (LoanStatus status, LoanService service, CancellationToken cancellationToken) =>
             Results.Ok(await service.ListAsync(status, cancellationToken)));
 
