@@ -61,6 +61,18 @@ public class Loan
         return loan;
     }
 
+    // Only status and return date change; drone, group, loan date and items stay as they were.
+    public void Return(DateTime returnDate)
+    {
+        if (Status != LoanStatus.Active)
+        {
+            throw new ConflictException($"Loan {Id} has already been returned.");
+        }
+
+        Status = LoanStatus.Returned;
+        ReturnDate = returnDate;
+    }
+
     // A type that was not given counts as quantity 0.
     public int QuantityOf(LoanItemType type) =>
         _items.SingleOrDefault(item => item.Type == type)?.Quantity ?? 0;

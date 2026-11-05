@@ -61,6 +61,20 @@ public class LoanService(DroneInventoryDbContext db, TimeProvider timeProvider)
         return ToResponse(loan, drone, group);
     }
 
+    public async Task<LoanResponse> ReturnAsync(int id, CancellationToken cancellationToken)
+    {
+        var loan = await db.Loans.Include(l => l.Items).SingleOrDefaultAsync(l => l.Id == id, cancellationToken)
+            ?? throw new NotFoundException($"No loan with id {id} exists.");
+
+        loan.Return(timeProvider.GetUtcNow().UtcDateTime);
+        await db.SaveChangesAsync(cancellationToken);
+
+        var drone = await db.Drones.SingleAsync(d => d.Id == loan.DroneId, cancellationToken);
+        var group = await db.StudentGroups.SingleAsync(g => g.Id == loan.StudentGroupId, cancellationToken);
+
+        return ToResponse(loan, drone, group);
+    }
+
     private static LoanResponse ToResponse(Loan loan, Drone drone, StudentGroup group) =>
         new(
             loan.Id,
