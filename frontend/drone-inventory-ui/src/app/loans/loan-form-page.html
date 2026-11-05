@@ -1,0 +1,96 @@
+<h1>Loan a drone</h1>
+
+@if (loadError(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+}
+
+<form (submit)="save($event)" novalidate>
+  <div class="field">
+    <label for="loan-drone">Drone</label>
+    <select
+      id="loan-drone"
+      [formField]="loanForm.droneId"
+      [attr.aria-invalid]="loanForm.droneId().touched() && loanForm.droneId().invalid()"
+      aria-describedby="loan-drone-error"
+    >
+      <option value="">Choose an available drone</option>
+      @for (drone of availableDrones(); track drone.id) {
+        <option [value]="drone.id">{{ drone.name }}</option>
+      }
+    </select>
+    <p id="loan-drone-error" class="error">
+      @if (loanForm.droneId().touched()) {
+        @for (error of loanForm.droneId().errors(); track $index) {
+          {{ error.message }}
+        }
+      }
+    </p>
+  </div>
+
+  <div class="field">
+    <label for="loan-group">Student group</label>
+    <select
+      id="loan-group"
+      [formField]="loanForm.studentGroupId"
+      [attr.aria-invalid]="loanForm.studentGroupId().touched() && loanForm.studentGroupId().invalid()"
+      aria-describedby="loan-group-error"
+    >
+      <option value="">Choose a student group</option>
+      @for (group of groups(); track group.id) {
+        <option [value]="group.id">{{ group.name }}</option>
+      }
+    </select>
+    <p id="loan-group-error" class="error">
+      @if (loanForm.studentGroupId().touched()) {
+        @for (error of loanForm.studentGroupId().errors(); track $index) {
+          {{ error.message }}
+        }
+      }
+    </p>
+  </div>
+
+  <div class="quantities">
+    <div class="field">
+      <label for="loan-batteries">Batteries</label>
+      <input
+        id="loan-batteries"
+        type="number"
+        step="1"
+        [formField]="loanForm.batteries"
+        [attr.aria-invalid]="loanForm.batteries().invalid()"
+        aria-describedby="loan-batteries-error"
+      />
+      <p id="loan-batteries-error" class="error">
+        @for (error of loanForm.batteries().errors(); track $index) {
+          {{ error.message }}
+        }
+      </p>
+    </div>
+
+    <div class="field">
+      <label for="loan-propellers">Propellers</label>
+      <input
+        id="loan-propellers"
+        type="number"
+        step="1"
+        [formField]="loanForm.propellers"
+        [attr.aria-invalid]="loanForm.propellers().invalid()"
+        aria-describedby="loan-propellers-error"
+      />
+      <p id="loan-propellers-error" class="error">
+        @for (error of loanForm.propellers().errors(); track $index) {
+          {{ error.message }}
+        }
+      </p>
+    </div>
+  </div>
+
+  @if (serverError(); as message) {
+    <p role="alert" class="error">{{ message }}</p>
+  }
+  @if (confirmation(); as message) {
+    <p role="status" class="confirmation">{{ message }}</p>
+  }
+
+  <button type="submit" [disabled]="loanForm().submitting()">Loan drone</button>
+</form>

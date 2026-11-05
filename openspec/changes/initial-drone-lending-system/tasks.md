@@ -44,7 +44,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 
 ## 8. Loan (frontend) — REQ-004 to REQ-010
 
-- [ ] 8.1 `LoanApi` service and loan form: select an available drone and a student group, enter batteries and propellers (`min 0`), submit and show backend errors (REQ-004–REQ-006); verify component tests that only available drones are offered and a 409 message is displayed (#20)
+- [x] 8.1 `LoanApi` service and loan form: select an available drone and a student group, enter batteries and propellers (`min 0`), submit and show backend errors (REQ-004–REQ-006); verify component tests that only available drones are offered and a 409 message is displayed (#20)
 - [ ] 8.2 Active loan list table (Group | Drone | Batteries | Propellers | Loan Date as `dd.MM.yyyy`) (REQ-007); verify a component test renders the example rows from the spec (#21)
 - [ ] 8.3 Return action on each active loan that calls the return endpoint and removes the loan from the list (REQ-008, REQ-009); verify a component test for the return flow (#22)
 - [ ] 8.4 Loan history table including return date (REQ-010); verify a component test renders returned loans with loan and return date (#23)
