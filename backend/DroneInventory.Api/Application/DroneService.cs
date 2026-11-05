@@ -9,11 +9,16 @@ public class DroneService(DroneInventoryDbContext db)
 {
     public async Task<IReadOnlyList<DroneResponse>> ListAsync(CancellationToken cancellationToken)
     {
-        // The status is derived from the active loan of a drone (design D1). Loans are not
-        // implemented yet (task 4.4), so every drone is currently available.
+        // The status is derived from the active loan of a drone and never stored (design D1).
         return await db.Drones
             .OrderBy(drone => drone.Name)
-            .Select(drone => new DroneResponse(drone.Id, drone.Name, drone.Description, DroneStatus.Available))
+            .Select(drone => new DroneResponse(
+                drone.Id,
+                drone.Name,
+                drone.Description,
+                db.Loans.Any(loan => loan.DroneId == drone.Id && loan.Status == LoanStatus.Active)
+                    ? DroneStatus.Loaned
+                    : DroneStatus.Available))
             .ToListAsync(cancellationToken);
     }
 
@@ -51,6 +56,7 @@ public class DroneService(DroneInventoryDbContext db)
             throw new ConflictException($"A drone named \"{name}\" already exists.");
         }
 
+        // A new drone has no loans yet, so it is always available.
         return new DroneResponse(drone.Id, drone.Name, drone.Description, DroneStatus.Available);
     }
 }
