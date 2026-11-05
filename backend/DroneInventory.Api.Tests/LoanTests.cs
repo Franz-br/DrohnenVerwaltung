@@ -64,4 +64,30 @@ public class LoanTests
         Assert.Throws<ValidationException>(() =>
             Loan.Create(Tello07Id, Group3Id, [(LoanItemType.Battery, 4), (LoanItemType.Battery, 2)], LoanDate));
     }
+
+    [Fact]
+    public void Return_marks_the_loan_as_returned_and_records_the_return_date()
+    {
+        var loan = Loan.Create(Tello07Id, Group3Id, [(LoanItemType.Battery, 4), (LoanItemType.Propeller, 8)], LoanDate);
+        var returnDate = LoanDate.AddDays(2);
+
+        loan.Return(returnDate);
+
+        Assert.Equal(LoanStatus.Returned, loan.Status);
+        Assert.Equal(returnDate, loan.ReturnDate);
+        Assert.Equal(LoanDate, loan.LoanDate);
+        Assert.Equal(4, loan.QuantityOf(LoanItemType.Battery));
+        Assert.Equal(8, loan.QuantityOf(LoanItemType.Propeller));
+    }
+
+    [Fact]
+    public void Return_of_a_returned_loan_is_rejected_and_keeps_the_original_return_date()
+    {
+        var loan = Loan.Create(Tello07Id, Group3Id, [], LoanDate);
+        var firstReturnDate = LoanDate.AddDays(2);
+        loan.Return(firstReturnDate);
+
+        Assert.Throws<ConflictException>(() => loan.Return(LoanDate.AddDays(5)));
+        Assert.Equal(firstReturnDate, loan.ReturnDate);
+    }
 }

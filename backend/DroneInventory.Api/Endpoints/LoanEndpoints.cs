@@ -24,6 +24,10 @@ public static class LoanEndpoints
             return Results.Created($"/api/loans/{loan.Id}", loan);
         });
 
+        // The return date is set by the backend, so the request has no body (REQ-009).
+        loans.MapPost("/{id:int}/return", async (int id, LoanService service, CancellationToken cancellationToken) =>
+            Results.Ok(await service.ReturnAsync(id, cancellationToken)));
+
         return app;
     }
 }
