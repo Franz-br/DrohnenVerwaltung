@@ -1,0 +1,42 @@
+.app-header {
+  background: #1f3a5f;
+  color: #fff;
+  padding: 0.75rem 1rem;
+}
+
+.app-title {
+  margin: 0 0 0.5rem;
+  font-weight: 700;
+}
+
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  border-bottom: 2px solid transparent;
+}
+
+nav a:hover,
+nav a.active {
+  border-bottom-color: #fff;
+}
+
+nav a:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.app-main {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 1rem;
+}

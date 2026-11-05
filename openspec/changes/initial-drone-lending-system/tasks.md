@@ -31,7 +31,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 
 ## 5. Frontend setup
 
-- [ ] 5.1 Replace the welcome page with a nav shell and lazy routes `/drones`, `/student-groups`, `/loans/new`, `/loans`, `/loans/history` (default `/drones`), add `provideHttpClient()`, `proxy.conf.json` (`/api` → `http://localhost:5092`) and API model types (design D9); update `app.spec.ts` and verify `ng test` and `ng build` pass (#16)
+- [x] 5.1 Replace the welcome page with a nav shell and lazy routes `/drones`, `/student-groups`, `/loans/new`, `/loans`, `/loans/history` (default `/drones`), add `provideHttpClient()`, `proxy.conf.json` (`/api` → `http://localhost:5092`) and API model types (design D9); update `app.spec.ts` and verify `ng test` and `ng build` pass (#16)
 
 ## 6. Drone (frontend) — REQ-001, REQ-002
 
