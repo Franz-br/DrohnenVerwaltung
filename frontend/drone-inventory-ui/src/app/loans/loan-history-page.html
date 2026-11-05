@@ -1,0 +1,35 @@
+<h1>Loan history</h1>
+
+@if (error(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+} @else if (loading()) {
+  <p>Loading loan history…</p>
+} @else if (loans().length === 0) {
+  <p>No loan has been returned yet.</p>
+} @else {
+  <table>
+    <caption class="visually-hidden">Returned loans</caption>
+    <thead>
+      <tr>
+        <th scope="col">Group</th>
+        <th scope="col">Drone</th>
+        <th scope="col" class="number">Batteries</th>
+        <th scope="col" class="number">Propellers</th>
+        <th scope="col">Loan Date</th>
+        <th scope="col">Return Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (loan of loans(); track loan.id) {
+        <tr>
+          <td>{{ loan.studentGroupName }}</td>
+          <td>{{ loan.droneName }}</td>
+          <td class="number">{{ loan.batteries }}</td>
+          <td class="number">{{ loan.propellers }}</td>
+          <td>{{ loan.loanDate | date: 'dd.MM.yyyy' }}</td>
+          <td>{{ loan.returnDate | date: 'dd.MM.yyyy' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}
