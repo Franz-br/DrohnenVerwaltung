@@ -7,6 +7,28 @@ namespace DroneInventory.Api.Application;
 
 public class LoanService(DroneInventoryDbContext db, TimeProvider timeProvider)
 {
+    public async Task<IReadOnlyList<LoanResponse>> ListAsync(LoanStatus status, CancellationToken cancellationToken)
+    {
+        return await (
+                from loan in db.Loans
+                join drone in db.Drones on loan.DroneId equals drone.Id
+                join studentGroup in db.StudentGroups on loan.StudentGroupId equals studentGroup.Id
+                where loan.Status == status
+                orderby loan.LoanDate, drone.Name
+                select new LoanResponse(
+                    loan.Id,
+                    drone.Id,
+                    drone.Name,
+                    studentGroup.Id,
+                    studentGroup.Name,
+                    loan.LoanDate,
+                    loan.ReturnDate,
+                    loan.Status,
+                    loan.Items.Where(item => item.Type == LoanItemType.Battery).Sum(item => item.Quantity),
+                    loan.Items.Where(item => item.Type == LoanItemType.Propeller).Sum(item => item.Quantity)))
+            .ToListAsync(cancellationToken);
+    }
+
     public async Task<LoanResponse> CreateAsync(CreateLoanRequest request, CancellationToken cancellationToken)
     {
         var drone = await db.Drones.FindAsync([request.DroneId], cancellationToken)
