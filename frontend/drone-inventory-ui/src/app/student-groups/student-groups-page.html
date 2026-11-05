@@ -1,0 +1,18 @@
+<h1>Student groups</h1>
+
+<app-student-group-form (created)="load()" />
+
+<h2>All student groups</h2>
+@if (error(); as message) {
+  <p role="alert" class="error">{{ message }}</p>
+} @else if (loading()) {
+  <p>Loading student groups…</p>
+} @else if (groups().length === 0) {
+  <p>No student groups yet.</p>
+} @else {
+  <ul class="group-list">
+    @for (group of groups(); track group.id) {
+      <li>{{ group.name }}</li>
+    }
+  </ul>
+}

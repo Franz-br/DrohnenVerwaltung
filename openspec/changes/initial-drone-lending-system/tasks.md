@@ -40,7 +40,7 @@ Each task is meant to become one GitHub Issue, one branch and one pull request. 
 
 ## 7. StudentGroup (frontend) — REQ-003
 
-- [ ] 7.1 `StudentGroupApi` service and student group page with list and create form showing backend errors; verify component tests for list, create and error display (#19)
+- [x] 7.1 `StudentGroupApi` service and student group page with list and create form showing backend errors; verify component tests for list, create and error display (#19)
 
 ## 8. Loan (frontend) — REQ-004 to REQ-010
 
